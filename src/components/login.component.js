@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
-export default class Login extends Component{
+export default class Login extends Component {
     constructor(props){
         super(props);
         
         this.onEnterUsername = this.onEnterUsername.bind(this);
         this.onEnterPassword = this.onEnterPassword.bind(this);
-        this.onSumbit = this.onSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
         this.onRegister = this.onRegister.bind(this);
         this.state = {
             username: '',
@@ -30,10 +30,10 @@ export default class Login extends Component{
     onSubmit(e) {
         e.preventDefault();
 
-        const user = {
-            username: this.state.username,
-            password: this.state.password
-        }
+        // const user = {
+        //     username: this.state.username,
+        //     password: this.state.password
+        // }
        // console.log(user)
         //add this after creating the home page
         //window.location = "/home";
@@ -43,6 +43,7 @@ export default class Login extends Component{
         e.preventDefault();
         window.location = "/register";
     }
+
     render(){
         return(
             <div>
@@ -70,7 +71,7 @@ export default class Login extends Component{
                         <input type="submit" value="Submit" className="btn btn-primary" />
                     </div>
                 </form>
-                <small>If you have not registered</small>
+                <small>Don't have an account?</small>
                 <form onSubmit={this.onRegister}>
                     <div className="register">
                         <input type="submit" value="Register" className="btn btn-primary" />
