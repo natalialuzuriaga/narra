@@ -19,4 +19,9 @@ connection.once('open', () => {
     console.log("Mongo has landed");
 })
 
+//requiring the schema files so they can be used
+const imagePostsRouter = require('/routes/imagePosts');
+
+app.use('/imagePosts', imagePostsRouter);
+
 app.listen(Port, () => console.log("server started"));
