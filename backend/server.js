@@ -19,4 +19,7 @@ connection.once('open', () => {
     console.log("Mongo has landed");
 })
 
-app.listen(Port, () => console.log("server started"));
+const usersRouter = require('./routes/users')
+app.use('/users', usersRouter)
+
+app.listen(Port, () => console.log("server is running on port: ${port}"));
