@@ -19,6 +19,10 @@ connection.once('open', () => {
     console.log("Mongo has landed");
 })
 
+//requiring the schema files so they can be used
+const postsRouter = require('./routes/posts');
+app.use('/posts', postsRouter);
+
 const usersRouter = require('./routes/users')
 app.use('/users', usersRouter)
 
