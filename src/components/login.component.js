@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
-export default class Login extends Component{
+export default class Login extends Component {
     constructor(props){
         super(props);
         
@@ -43,6 +43,7 @@ export default class Login extends Component{
         e.preventDefault();
         window.location = "/register";
     }
+
     render(){
         return(
             <div>
@@ -70,7 +71,7 @@ export default class Login extends Component{
                         <input type="submit" value="Submit" className="btn btn-outline-primary btn-lg btWidth" />
                     </div>
                 </form>
-                <small>If you have not registered</small>
+                <small>Don't have an account?</small>
                 <form onSubmit={this.onRegister}>
                     <div className="register">
                         <input type="submit" value="Register" className="btn btn-outline-primary btn-lg btWidth" />
