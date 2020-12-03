@@ -7,7 +7,7 @@ export default class Login extends Component{
         
         this.onEnterUsername = this.onEnterUsername.bind(this);
         this.onEnterPassword = this.onEnterPassword.bind(this);
-        this.onSumbit = this.onSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
         this.onRegister = this.onRegister.bind(this);
         this.state = {
             username: '',
@@ -34,9 +34,9 @@ export default class Login extends Component{
             username: this.state.username,
             password: this.state.password
         }
-       // console.log(user)
-        //add this after creating the home page
-        //window.location = "/home";
+       console.log(user);
+        // add this after creating the home page
+        window.location = "/home";
     }
 
     onRegister(e){
@@ -67,13 +67,13 @@ export default class Login extends Component{
                                 />
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Submit" className="btn btn-primary" />
+                        <input type="submit" value="Submit" className="btn btn-outline-primary btn-lg btWidth" />
                     </div>
                 </form>
                 <small>If you have not registered</small>
                 <form onSubmit={this.onRegister}>
                     <div className="register">
-                        <input type="submit" value="Register" className="btn btn-primary" />
+                        <input type="submit" value="Register" className="btn btn-outline-primary btn-lg btWidth" />
                     </div>
                 </form>
             </div>
