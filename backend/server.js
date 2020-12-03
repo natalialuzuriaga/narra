@@ -20,8 +20,8 @@ connection.once('open', () => {
 })
 
 //requiring the schema files so they can be used
-const imagePostsRouter = require('/routes/imagePosts');
+const postsRouter = require('/routes/posts');
 
-app.use('/imagePosts', imagePostsRouter);
+app.use('/posts', postsRouter);
 
 app.listen(Port, () => console.log("server started"));
