@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import LandingNav from "./components/landing-nav.component"
 import Login from "./components/login.component";
 import Register from "./components/register.component";
+
 function App() {
   return (
     <Router>

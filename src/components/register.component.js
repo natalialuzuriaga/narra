@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { Col, Container } from 'react-bootstrap';
-import Avatar from 'react-avatar-edit'
+import ProfilePic from "./profile-pic.component"
 
 export default class Register extends Component {
     render() {
@@ -57,42 +57,20 @@ export default class Register extends Component {
                         </Form.Group>
                     </Form.Row>
 
-                    {/* <div className="mb-3">
-                        <Avatar
-                        width={390}
-                        height={295}
-                        // onCrop={this.onCrop}
-                        // onClose={this.onClose}
-                        // onBeforeFileLoad={this.onBeforeFileLoad}
-                        // src={this.state.src}
-                        />
-                    </div> */}
-
                     <Form.Row>
                         <Form.Group as={Col} md="6">
-                            <Form.Label>City</Form.Label>
+                            <Form.Label>Email Address</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="City"
                                 name="city"
                             />
                         </Form.Group>
 
-                        <Form.Group as={Col} md="3">
-                            <Form.Label>State</Form.Label>
+                        <Form.Group as={Col} md="6">
+                            <Form.Label>Confirm Email Address</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="State"
-                                name="state"
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} md="3">
-                            <Form.Label>Zip</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Zip"
-                                name="zip"
+                                name="confirmemail"
                             />
                         </Form.Group>
                     </Form.Row>
