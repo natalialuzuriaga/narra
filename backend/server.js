@@ -20,7 +20,7 @@ connection.once('open', () => {
 })
 
 //requiring the schema files so they can be used
-const postsRouter = require('/routes/posts');
+const postsRouter = require('./routes/posts');
 
 app.use('/posts', postsRouter);
 
