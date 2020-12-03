@@ -21,7 +21,9 @@ connection.once('open', () => {
 
 //requiring the schema files so they can be used
 const postsRouter = require('./routes/posts');
-
 app.use('/posts', postsRouter);
 
-app.listen(Port, () => console.log("server started"));
+const usersRouter = require('./routes/users')
+app.use('/users', usersRouter)
+
+app.listen(Port, () => console.log("server is running on port: ${port}"));
