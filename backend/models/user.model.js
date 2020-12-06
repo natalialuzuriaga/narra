@@ -7,10 +7,6 @@ const userSchema = new Schema({
         type: String,
         required: true
     }],
-    posts: [{ 
-        type: String,
-        required: false
-    }],
     profilePicture: { 
         type: String, 
         required: false
