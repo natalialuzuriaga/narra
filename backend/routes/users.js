@@ -11,9 +11,10 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 });
 
-//Authentication
+//Authentication (Login)
 router.route('/login').post(
 [
+    //check
     check("username", "Please enter a valid username")
         .not()
         .isEmpty(),
@@ -26,7 +27,7 @@ router.route('/login').post(
     async(req, res) => {
         const errors = validationResult(req);
 
-        if(!errors,isEmpty()){
+        if(!errors.isEmpty()){
             return res.status(400).json({
                 errors: errors.array()
             });
@@ -77,14 +78,19 @@ router.route('/login').post(
     }
 );
 
-//Add User (Register)
+//Add New User (Register)
 router.route('/add').post((req, res) => {
+
+    //validate
+    if(await User.findOne({username: req.body.username})) {
+        throw 'Username ' + req.body.username + 'is already taken';
+    }
 
     //User Fields
     const username = req.body.username;
     const personalityType = req.body.personalityType;
     const profilePicture = req.body.profilePicture;
-    const password = req.body.password;
+    const password = bcrypt.hash(req.body.password, 10);
     const biography = req.body.biography;
     const friends = req.body.friends;
     const snapchat = req.body.username;

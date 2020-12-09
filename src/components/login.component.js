@@ -34,8 +34,12 @@ export default class Login extends Component {
             password: this.state.password
         }
        console.log(user);
-        // add this after creating the home page
-        window.location = "/home";
+
+       axios.post('http://localhost:3000/users/login', user)
+            .then(res => console.log(res.data));
+
+
+        //window.location = "/home";
     }
 
     onRegister(e){
