@@ -7,10 +7,6 @@ const userSchema = new Schema({
         type: String,
         required: true
     }],
-    posts: [{ 
-        type: String,
-        required: false
-    }],
     profilePicture: { 
         type: String, 
         required: false
@@ -57,21 +53,6 @@ const userSchema = new Schema({
     timestaps: true,
     }
 );
-
-//Test Object
-// const userSchema = new Schema ({
-//     username: {
-//         type: String,
-//         required: true,
-//         unique: true,
-//         trim: true, 
-//         minLength: 3
-//     },
-// }, {
-//     timestamps: true,
-// }
-// );
-
 
 const User = mongoose.model('User', userSchema)
 
