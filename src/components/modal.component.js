@@ -8,11 +8,15 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 
 const UserModal = (props) => {
     return (
-        <Modal show={props.show} onHide={props.onHide}>
+        <Modal centered show={props.show} onHide={props.onHide}>
             <Modal.Header closeButton>
                 <Modal.Title>{props.name}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>{props.bio}</Modal.Body>
+            <Modal.Body>{props.snapchat}</Modal.Body>
+            <Modal.Body>{props.instagram}</Modal.Body>
+            <Modal.Body>{props.twitter}</Modal.Body>
+            <Modal.Body>{props.facebook}</Modal.Body>
+            <Modal.Body>{props.discord}</Modal.Body>
             <Modal.Footer>
                 <ToggleButton
                     type="checkbox"
