@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
-import  CardGroup from 'react-bootstrap/Card';
-
 import {Row, Col} from 'react-bootstrap';
 
 import {Container } from 'react-bootstrap';
 
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
 //1:30:00
 
 //use component as a functional react component because there is a lack of state and life cycle methods
@@ -62,16 +59,6 @@ const Match = () => {
                     </Row>
                     </Card>
                 </Row>
-                {/* </CardGroup> */}
-                {/* <Row className="justify-content-md-center">
-                        <Card style={styles.card} key={index} className={"text-center", "m-5 border-0 shadow", "m-5 d-block"}>
-                            <Card.Img variant="top" src="holder.js/100px180" src={card.image}/>
-                            <Card.Body>
-                            <Card.Title>{card.title}</Card.Title>
-                            <Card.Text>{card.text}</Card.Text>
-                            </Card.Body>
-                        </Card>
-                </Row>   */}
             </Container>            
         );
       };

@@ -50,7 +50,7 @@ const userSchema = new Schema({
         required: false
     },
 }, {
-    timestaps: true,
+    timestamps: true,
     }
 );
 
