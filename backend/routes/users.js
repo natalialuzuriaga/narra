@@ -34,6 +34,7 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 });
 
+//Get User using object ID
 router.route('/:id').get((req, res) => {
         User.findById(req.params.id)
             .then(user => res.json(user))
@@ -41,6 +42,7 @@ router.route('/:id').get((req, res) => {
 
 });
 
+//Update user
 router.route('/update/:id').post((req, res) =>{
     User.findById(req.params.id)
    .then(user => {
