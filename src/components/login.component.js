@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 
 export default class Login extends Component{
@@ -7,7 +8,7 @@ export default class Login extends Component{
         
         this.onEnterUsername = this.onEnterUsername.bind(this);
         this.onEnterPassword = this.onEnterPassword.bind(this);
-        this.onSumbit = this.onSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
         this.onRegister = this.onRegister.bind(this);
         this.state = {
             username: '',
@@ -43,14 +44,15 @@ export default class Login extends Component{
         e.preventDefault();
         window.location = "/register";
     }
+
     render(){
         return(
-            <div>
-                <h3>Login</h3>
+            <Container className="w-50">
+                <h2>Login</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
                         <label>Username: </label>
-                        <input  type="text"
+                        <input type="text"
                                 required
                                 className="form-control"
                                 value={this.state.username}
@@ -76,7 +78,7 @@ export default class Login extends Component{
                         <input type="submit" value="Register" className="btn btn-primary" />
                     </div>
                 </form>
-            </div>
+            </Container>
         );
     }
 }
