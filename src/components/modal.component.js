@@ -1,12 +1,13 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Modal from 'react-bootstrap/Modal';
 import ModalTitle from 'react-bootstrap/ModalTitle';
 import ModalBody from 'react-bootstrap/ModalBody';
 import ModalFooter from 'react-bootstrap/ModalFooter';
-import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 
 const UserModal = (props) => {
+    const [follow, setFollow] = useState(false);
     return (
         <Modal centered show={props.show} onHide={props.onHide}>
             <Modal.Header closeButton>
@@ -18,15 +19,17 @@ const UserModal = (props) => {
             <Modal.Body>{props.facebook}</Modal.Body>
             <Modal.Body>{props.discord}</Modal.Body>
             <Modal.Footer>
-                <ToggleButton
-                    type="checkbox"
-                    variant="info"
-                    //checked={checked}
-                    value="1"
-                    //onChange={(e) => setChecked(e.currentTarget.checked)}
-                >
-                    Follow
-        </ToggleButton>
+                <ButtonGroup toggle className="mb-2">
+                    <ToggleButton
+                        type="checkbox"
+                        variant={follow ? "success" : "secondary"}
+                        checked={follow}
+                        value="1"
+                        onChange={(e) => setFollow(e.currentTarget.checked)}
+                    >
+                        {follow ? "Following!" : "Follow"}
+                    </ToggleButton>
+                </ButtonGroup>
             </Modal.Footer>
         </Modal>
     );
