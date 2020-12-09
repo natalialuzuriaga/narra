@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom'
+import axios from 'axios';
 
 export default class Login extends Component {
     constructor(props){
         super(props);
-        
         this.onEnterUsername = this.onEnterUsername.bind(this);
         this.onEnterPassword = this.onEnterPassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
