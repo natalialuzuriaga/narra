@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
+import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom'
+=======
 import axios from 'axios';
+>>>>>>> c97014a83ed408904d88d89c4d8958c588ce3d71
 
 export default class Login extends Component {
     constructor(props){
@@ -89,12 +94,12 @@ export default class Login extends Component {
 
     render(){
         return(
-            <div>
-                <h3>Login</h3>
+            <Container className="w-50">
+                <h2>Login</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
                         <label>Username: </label>
-                        <input  type="text"
+                        <input type="text"
                                 required
                                 className="form-control"
                                 value={this.state.username}
@@ -128,7 +133,7 @@ export default class Login extends Component {
                         <input type="submit" value="Register" className="btn btn-outline-primary btn-lg btWidth" />
                     </div>
                 </form>
-            </div>
+            </Container>
         );
     }
 }

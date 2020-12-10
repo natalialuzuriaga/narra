@@ -1,102 +1,97 @@
 import React, { Component } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
-import { Col, Container } from 'react-bootstrap';
+import RegisterAccount from './register-account.component';
+import RegisterProfile from './register-profile.component';
+import RegisterConfirm from './register-confirm.component';
+import RegisterSuccess from './register-success.component';
 
 export default class Register extends Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            step: 1,
+            firstName: '',
+            lastName: '',
+            email: '',
+            confirmEmail: '',
+            username: '',
+            password: '',
+            personalityType: '',
+            bio: '',
+            img: '',
+            snapchat: '',
+            instagram: '',
+            facebook: '',
+            discord: '',
+        }
+    }
+
+    // Proceed to next step
+    nextStep = () => {
+        const { step } = this.state;
+        this.setState({
+            step: step + 1
+        });
+    };
+
+    // Go back to prev step
+    prevStep = () => {
+        const { step } = this.state;
+        this.setState({
+            step: step - 1
+        });
+    };
+
+    // Handle fields change
+    handleChange = input => e => {
+        this.setState({ [input]: e.target.value });
+    };
+
     render() {
-        return (
-            <Container className="w-50">
-                <h1>
-                    Register for Narra
-                </h1>
-
-                <Form>
-                    <Form.Row>
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>First name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="firstName"
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Last name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="lastName"
-                            />
-                        </Form.Group>
-
-                    </Form.Row>
-
-                    <Form.Row>
-                        <Form.Group as={Col} md="5">
-                            <Form.Label>Username</Form.Label>
-                            <InputGroup>
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <Form.Control
-                                type="text"
-                                placeholder="Username"
-                                name="username"
-                                />
-                            </InputGroup>
-                        </Form.Group>
-
-                        <Form.Group as={Col} md="7">
-                            <Form.Label>Password (must be at least 8 characters)</Form.Label>
-                            <Form.Control
-                                type="password"
-                                name="password"
-                            />
-                        </Form.Group>
-                    </Form.Row>
-
-                    <div className="mb-3">
-                        <Form.File>
-                            <Form.File.Label>Profile Picture (must be .PNG or .JPG)</Form.File.Label>
-                            <Form.File.Input />
-                        </Form.File>
-                    </div>
-
-                    <Form.Row>
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>City</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="City"
-                                name="city"
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} md="3">
-                            <Form.Label>State</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="State"
-                                name="state"
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} md="3">
-                            <Form.Label>Zip</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Zip"
-                                name="zip"
-                            />
-                        </Form.Group>
-                    </Form.Row>
-
-                    <Button type="submit">Create Account</Button>
-                
-                </Form>
-
-            </Container>
-        );
+        const { step } = this.state;
+        const { firstName, lastName,
+            email, confirmEmail,
+            username, password,
+            personalityType, bio, img,
+            snapchat, instagram,
+            facebook, discord } = this.state;
+        const values = { firstName, lastName,
+            email, confirmEmail,
+            username, password,
+            personalityType, bio, img,
+            snapchat, instagram,
+            facebook, discord };
+        
+        switch (step) {
+            case 1:
+                return (
+                <RegisterAccount
+                    nextStep={this.nextStep}
+                    handleChange={this.handleChange}
+                    values={values}
+                />
+                );
+            case 2:
+                return (
+                <RegisterProfile
+                    nextStep={this.nextStep}
+                    prevStep={this.prevStep}
+                    handleChange={this.handleChange}
+                    values={values}
+                />
+                );
+            case 3:
+                return (
+                <RegisterConfirm
+                    nextStep={this.nextStep}
+                    prevStep={this.prevStep}
+                    values={values}
+                />
+                );
+            case 4:
+                return <RegisterSuccess />;
+            default:
+                console.log('Team Narra!');
+        }
     }
 }
