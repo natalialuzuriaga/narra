@@ -9,6 +9,7 @@
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "express": "^4.17.1",
+    "flatlist-react": "^1.4.3",
     "jquery": "^3.5.1",
     "mongodb": "^3.6.3",
     "mongodb-client-encryption": "^1.1.0",
