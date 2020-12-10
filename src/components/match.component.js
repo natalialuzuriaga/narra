@@ -46,7 +46,7 @@ const Match = (props) => {
   ]
 
   function getInd(personality) {
-    switch(personality){
+    switch (personality) {
       case "ENFP":
         return 0;
       case "INFP":
@@ -87,13 +87,13 @@ const Match = (props) => {
   //get currently logged in user
   //store user.personalityType in a variable
   //switch statement for each personality type
-    //set var index to number based on personality case
+  //set var index to number based on personality case
   //declare array of potentialFriends(list of user IDs)
   //for length of array at matches[index]
-    //get all people in db w that type and save in temp
-    //potentialFriends = potentialFriends.concat(temp.users)
+  //get all people in db w that type and save in temp
+  //potentialFriends = potentialFriends.concat(temp.users)
   //for each in potentialFriends
-    //get entire user info and add to usersInfo
+  //get entire user info and add to usersInfo
   //usersInfo has everything we need
 
   const addToUsersInfo = (user) => {
@@ -103,75 +103,80 @@ const Match = (props) => {
   }
 
   useEffect(() => {
-    if (!dataFetched){
+    if (!dataFetched) {
       const curUserID = "5fcc72aa929bc4383602a196";
-      axios.get('http://localhost:3000/users/'+curUserID)
-      .then(response => {
-        setcurrentUser(response);
-        const i = getInd(currentUser.personalityType);
-        var potentialFriends = [];
-        for (j = 0; j < matches[i].length; j++){
-          axios.get('http://localhost:3000/types/'+matches[i][j])
-          .then(response => {
-            potentialFriends = potentialFriends.concat(response.users);
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-        }
-        for (j = 0; j < potentialFriends.length; j++){
-          axios.get('http://localhost:3000/users/'+potentialFriends[j])
-          .then(response => {
-            addToUsersInfo({
-               username: response.username,
-               personalityType: response.personalityType,
-               profilePicture: response.profilePicture,
-              //  password: response.body.password,
-               biography: response.biography,
-               //friends = req.body.friends;
-               snapchat: response.username,
-               instagram: response.instagram,
-              //  twitter: response.body.twitter,
-               facebook: response.username,
-               discord: response.discord,
-            })
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-        }
-        dataFetched = true;
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      axios.get('http://localhost:3000/users/' + curUserID)
+        .then(response => {
+          setcurrentUser(response);
+          const i = getInd(currentUser.personalityType);
+          var potentialFriends = [];
+          for (j = 0; j < matches[i].length; j++) {
+            axios.get('http://localhost:3000/types/' + matches[i][j])
+              .then(response => {
+                potentialFriends = potentialFriends.concat(response.users);
+              })
+              .catch((error) => {
+                console.log(error);
+              })
+          }
+          for (j = 0; j < potentialFriends.length; j++) {
+            axios.get('http://localhost:3000/users/' + potentialFriends[j])
+              .then(response => {
+                addToUsersInfo({
+                  name: response.firstName + " " + response.lastName,
+                  personalityType: response.personalityType,
+                  profilePicture: response.profilePicture,
+                  biography: response.biography,
+                  snapchat: response.snapchat,
+                  instagram: response.instagram,
+                  facebook: response.facebook,
+                  discord: response.discord,
+                })
+              })
+              .catch((error) => {
+                console.log(error);
+              })
+          }
+          dataFetched = true;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     }
   })
-  
+
 
   const renderCard = (person, idx) => {
     return (
       <MatchCard
-        nameCard={person.title}
-        personality={person.mb}
-        bio={"I love to bake, go backpacking and travel:) I'm always down to go chill at the beach or anywhere with nature! hmu if you wanna be friends"}
-        imageSource={person.image}
-        nameModal={person.title}
-        snapchat={"angela"}
-        instagram={"angela"}
-        twitter={"angela"}
+        nameCard={person.name}
+        personality={person.personalityType}
+        bio={person.biography}
+        imageSource={person.profilePicture}
+        nameModal={person.name}
+        snapchat={person.snapchat}
+        instagram={person.instagram}
+        twitter={person.discord}
       />
     );
   }
-  return (
-    <ul>
-      <FlatList
-        list={usersInfo}
-        renderItem={renderCard}
-        renderWhenEmpty={() => <div>You have no suggested matches :(</div>}
-      />
-    </ul>
-  )
+  if (dataFetched) {
+    return (
+      <ul>
+        <FlatList
+          list={usersInfo}
+          renderItem={renderCard}
+          renderWhenEmpty={() => <div>You have no suggested matches :(</div>}
+        />
+      </ul>
+    )
+  }
+  else {
+    return (
+      <div>You have no suggested matched :(</div>
+    )
+  }
+
 }
 
 export default Match;

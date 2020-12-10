@@ -1,6 +1,6 @@
 //express setup
 const express = require('express');
-//const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
@@ -18,7 +18,6 @@ const connection = mongoose.connection;
 connection.once('open', () => {
     console.log("Mongo has landed");
 })
-
 
 const usersRouter = require('./routes/users')
 const typesRouter = require('./routes/types')
