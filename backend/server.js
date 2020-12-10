@@ -1,6 +1,6 @@
 //express setup
 const express = require('express');
-//const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
@@ -19,4 +19,9 @@ connection.once('open', () => {
     console.log("Mongo has landed");
 })
 
-app.listen(Port, () => console.log("server started"));
+const usersRouter = require('./routes/users')
+const typesRouter = require('./routes/types')
+app.use('/users', usersRouter)
+app.use('/types', typesRouter)
+
+app.listen(Port, () => console.log("server is running on port: ${port}"));
