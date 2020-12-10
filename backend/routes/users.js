@@ -32,6 +32,7 @@ router.route('/login').post(
                 username
             });
             
+            console.log(user)
             //validates if username exists
             if(!user){
                 return res.status(400).json({
@@ -41,6 +42,7 @@ router.route('/login').post(
             
             //checks password matches
             const isMatch = await bcrypt.compare(password, user.password);
+            console.log(isMatch)
             if (!isMatch){
                 return res.status(400).json({
                     type: "INCORRECT_PASSWORD"

@@ -35,16 +35,18 @@ export default class Login extends Component {
           errorResponse = error.response.data;
 
           if(errorResponse.type === "INCORRECT_PASSWORD"){
+              console.log(errorResponse.type)
             this.setState({
                 errPass: true
             });
-              //error for incorrect password
+              
           }
 
           if(errorResponse.type === "NONEXISTENT"){
+            console.log(errorResponse.type)
             this.setState({
                 errUser: true
-            });//error for user does not exist
+            });
           }
           
         } else if(error.request) {
@@ -68,7 +70,12 @@ export default class Login extends Component {
             username: this.state.username,
             password: this.state.password
         }
-       console.log(user);
+       
+        //reset errors
+        this.setState({
+            errUser: false,
+            errPass: false
+        });
 
        axios.post('http://localhost:3000/users/login', user)
             .then(res => this.handleLogIn)
@@ -111,7 +118,7 @@ export default class Login extends Component {
                     }
 
                     {this.state.errUser &&
-                        <p style={{ color: 'red' }}>This user does not exit</p>
+                        <p style={{ color: 'red' }}>This user does not exist</p>
 
                     }
                 </form>
