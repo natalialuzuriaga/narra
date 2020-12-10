@@ -18,21 +18,23 @@ const MatchCard = (props) => {
                 facebook={"Facebook: " + props.facebook}
                 discord={"Discord: " + props.discord}
             ></UserModal>
-            <Card className="m-5 border-0 shadow" style={styles.card}>
-                <Row>
-                    <Col>
-                        <Card.Img src="holder.js/100px180" src={props.imageSource} className="rounded-circle" />
-                    </Col>
-                    <Col>
-                        <Card.Body>
-                            <Card.Title as="h1">{props.nameCard}</Card.Title>
-                            <Card.Text as="h4">{props.personality}</Card.Text>
-                            <Card.Text as="h6">{props.bio}</Card.Text>
-                            <Button variant="info" size="lg" onClick={() => setVisible(true)}>Want to be friends?</Button>
-                        </Card.Body>
-                    </Col>
-                </Row>
-            </Card>
+            <Row className="justify-content-md-center">
+                <Card className="m-5 border-0 shadow" style={styles.card}>
+                    <Row>
+                        <Col>
+                            <Card.Img src="holder.js/100px180" src={props.imageSource} className="rounded-circle" />
+                        </Col>
+                        <Col>
+                            <Card.Body>
+                                <Card.Title as="h1">{props.nameCard}</Card.Title>
+                                <Card.Text as="h4">{props.personality}</Card.Text>
+                                <Card.Text as="h6">{props.bio}</Card.Text>
+                                <Button variant="info" size="lg" onClick={() => setVisible(true)}>Want to be friends?</Button>
+                            </Card.Body>
+                        </Col>
+                    </Row>
+                </Card>
+            </Row>
         </div>
     )
 }
