@@ -21,10 +21,11 @@ const ESFJ = "5fd1c54299d8e0880b651069";
 const ISTJ = "5fd1c54299d8e0880b65106a";
 const ESTJ = "5fd1c54299d8e0880b65106b";
 
+var potentialFriends = []
+
 const Match = (props) => {
   const [usersInfo, setUsersInfo] = useState([]);
   const [dataFetched, setdataFetched] = useState(false);
-  const [currentUser, setcurrentUser] = useState();
   //matches for personality types array
   const matches = [
     [INFJ, INTJ, INFP, ENFP, ENFJ, ENTJ, INTP, ENTP],
@@ -107,40 +108,49 @@ const Match = (props) => {
       const curUserID = "5fcc72aa929bc4383602a196";
       axios.get('http://localhost:3000/users/' + curUserID)
         .then(response => {
-          setcurrentUser(response);
-          const i = getInd(currentUser.personalityType);
-          var potentialFriends = [];
-          for (j = 0; j < matches[i].length; j++) {
+          const i = getInd(response.data.personalityType);
+          // console.log(matches[i]);
+          //let potentialFriends = [];
+          for (let j = 0; j < matches[i].length; j++) {
             axios.get('http://localhost:3000/types/' + matches[i][j])
               .then(response => {
-                potentialFriends = potentialFriends.concat(response.users);
+                //console.log(potentialFriends)
+                if (response.data.users !== null) {
+                  var newArr = potentialFriends.concat(response.data.users)
+                  potentialFriends = newArr;
+                  //console.log(response.data.users)
+                  console.log(potentialFriends.length)
+                }
               })
               .catch((error) => {
-                console.log(error);
+                console.log(matches[i][j])
+                console.log("error with getting potential matches ids");
               })
           }
-          for (j = 0; j < potentialFriends.length; j++) {
-            axios.get('http://localhost:3000/users/' + potentialFriends[j])
+          console.log("final length: " + newArr.length)
+          for (let k = 0; k < potentialFriends.length; k++) {
+            axios.get('http://localhost:3000/users/' + potentialFriends[k])
               .then(response => {
                 addToUsersInfo({
-                  name: response.firstName + " " + response.lastName,
-                  personalityType: response.personalityType,
-                  profilePicture: response.profilePicture,
-                  biography: response.biography,
-                  snapchat: response.snapchat,
-                  instagram: response.instagram,
-                  facebook: response.facebook,
-                  discord: response.discord,
+                  name: response.data.firstName + " " + response.data.lastName,
+                  personalityType: response.data.personalityType,
+                  profilePicture: response.data.profilePicture,
+                  biography: response.data.biography,
+                  snapchat: response.data.snapchat,
+                  instagram: response.data.instagram,
+                  facebook: response.data.facebook,
+                  discord: response.data.discord,
                 })
+                console.log(usersInfo)
               })
               .catch((error) => {
-                console.log(error);
+                console.log("error with getting user object and pushing into usersInfo");
               })
           }
           dataFetched = true;
         })
         .catch((error) => {
-          console.log(error);
+          console.log("nothing worked rip");
         })
     }
   })
@@ -173,7 +183,7 @@ const Match = (props) => {
   }
   else {
     return (
-      <div>You have no suggested matched :(</div>
+      <div>Couldn't fetch anything:(</div>
     )
   }
 
