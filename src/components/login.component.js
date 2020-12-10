@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom'
+import axios from 'axios';
 
 export default class Login extends Component {
     constructor(props){
         super(props);
-        
         this.onEnterUsername = this.onEnterUsername.bind(this);
         this.onEnterPassword = this.onEnterPassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -27,6 +26,34 @@ export default class Login extends Component {
         });
     }
 
+    handleErrorResponse = (error) => {
+        let errorResponse
+        if(error.response && error.response.data) {
+        //Handling Response Errors
+          errorResponse = error.response.data;
+
+          if(errorResponse.type == "INCORRECT_PASSWORD"){
+              //error for incorrect password
+          }
+
+          if(errorResponse.type == "NONEXISTENT"){
+              //error for user does not exist
+          }
+          
+        } else if(error.request) {
+          // TO Handle the default error response for Network failure or 404 etc.,
+          errorResponse = error.request.message || error.request.statusText;
+
+        } else {
+            //handle other errors
+          errorResponse = error.message;
+        }
+      }
+
+    handleLogIn = () => {
+        window.location = '/home'
+    }
+
     onSubmit(e) {
         e.preventDefault();
 
@@ -35,8 +62,10 @@ export default class Login extends Component {
             password: this.state.password
         }
        console.log(user);
-        // add this after creating the home page
-        window.location = "/home";
+
+       axios.post('http://localhost:3000/users/login', user)
+            .then(res => this.handleLogIn)
+            .catch(error => this.handleErrorResponse(error));
     }
 
     onRegister(e){

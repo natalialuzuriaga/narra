@@ -1,4 +1,7 @@
 const router = require('express').Router();
+const { check, validationResult} = require("express-validator/check");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 let User = require('../models/user.model');
 
 //Gets All Users
@@ -8,16 +11,95 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 });
 
-//Get Specific User (Login)
+//Authentication (Login)
+router.route('/login').post(
+[
+    //check
+    check("username", "Please enter a valid username")
+        .not()
+        .isEmpty(),
 
-//Add User (Register)
+    check("password", "Please enter a valid password").isLength({
+        min: 8
+    })
+],
+
+    async(req, res) => {
+        try{
+            const {username, password} = req.body;
+
+            let user = await User.findOne({
+                username
+            });
+            
+            //validates if username exists
+            if(!user){
+                return res.status(400).json({
+                    type: "NONEXISTENT"
+                });
+            }
+            
+            //checks password matches
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch){
+                return res.status(400).json({
+                    type: "INCORRECT_PASSWORD"
+                });
+            }
+
+            const payload = {
+                user: {
+                    id: user.id
+                }
+            };
+
+            jwt.sign(
+                payload, "randomString",
+                {
+                    expiresIn: 3600
+                },
+                (err, token) => {
+                    if(err) throw err;
+                    res.status(200).json({
+                        token
+                    });
+                }
+            );
+        }
+        catch(e){
+            console.error(e);
+            res.status(500).json({
+                message: "Server Error"
+            });
+        }
+    }
+);
+
+//Add New User (Register)
 router.route('/add').post((req, res) => {
+
+    //validate
+    // if(await User.findOne({username: req.body.username})) {
+    //     throw 'Username ' + req.body.username + 'is already taken';
+    // }
+
+    // let user = await User.findOne({
+    //     username: req.body.username
+    // });
+    // if(user){
+    //     return res.status(400).json({
+    //         message: "Username is already taken"
+    //     });
+    // }
 
     //User Fields
     const username = req.body.username;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const email = req.body.email;
     const personalityType = req.body.personalityType;
     const profilePicture = req.body.profilePicture;
-    const password = req.body.password;
+    const password = bcrypt.hash(req.body.password, 10);
     const biography = req.body.biography;
     const friends = req.body.friends;
     const snapchat = req.body.username;
@@ -26,7 +108,7 @@ router.route('/add').post((req, res) => {
     const facebook = req.body.username;
     const discord = req.body.discord;
 
-    const newUser = new User({username, personalityType, profilePicture, password, biography, 
+    const newUser = new User({username, firstName, lastName, email, personalityType, profilePicture, password, biography, 
         friends, snapchat, instagram, twitter, facebook, discord});
 
     newUser.save()
@@ -47,6 +129,9 @@ router.route('/update/:id').post((req, res) =>{
     User.findById(req.params.id)
    .then(user => {
         user.username = req.body.username;
+        user.firstName = req.body.firstName;
+        user.lastName = req.body.lastName;
+        user.email = req.body.email;
         user.personalityType = req.body.personalityType;
         user.profilePicture = req.body.profilePicture;
         user.password = req.body.password;
