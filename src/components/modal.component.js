@@ -15,7 +15,6 @@ const UserModal = (props) => {
             </Modal.Header>
             <Modal.Body>{props.snapchat}</Modal.Body>
             <Modal.Body>{props.instagram}</Modal.Body>
-            <Modal.Body>{props.twitter}</Modal.Body>
             <Modal.Body>{props.facebook}</Modal.Body>
             <Modal.Body>{props.discord}</Modal.Body>
             <Modal.Footer>
