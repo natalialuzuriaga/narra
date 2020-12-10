@@ -10,7 +10,9 @@ export default class Login extends Component {
         this.onRegister = this.onRegister.bind(this);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            errPass: false,
+            errUser: false
         }
     }
 
@@ -32,12 +34,17 @@ export default class Login extends Component {
         //Handling Response Errors
           errorResponse = error.response.data;
 
-          if(errorResponse.type == "INCORRECT_PASSWORD"){
+          if(errorResponse.type === "INCORRECT_PASSWORD"){
+            this.setState({
+                errPass: true
+            });
               //error for incorrect password
           }
 
-          if(errorResponse.type == "NONEXISTENT"){
-              //error for user does not exist
+          if(errorResponse.type === "NONEXISTENT"){
+            this.setState({
+                errUser: true
+            });//error for user does not exist
           }
           
         } else if(error.request) {
@@ -99,6 +106,14 @@ export default class Login extends Component {
                     <div className="form-group">
                         <input type="submit" value="Submit" className="btn btn-outline-primary btn-lg btWidth" />
                     </div>
+                    {this.state.errPass &&
+                        <p style={{ color: 'red' }}>The password is incorrect</p>
+                    }
+
+                    {this.state.errUser &&
+                        <p style={{ color: 'red' }}>This user does not exit</p>
+
+                    }
                 </form>
                 <small>Don't have an account?</small>
                 <form onSubmit={this.onRegister}>
