@@ -37,8 +37,7 @@ export default class Login extends Component {
 
        axios.post('http://localhost:3000/users/login', user)
             .then(res => console.log(res.data));
-
-
+            
         //window.location = "/home";
     }
 
