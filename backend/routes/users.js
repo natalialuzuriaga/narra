@@ -81,10 +81,13 @@ router.route('/login').post(
 router.route('/add').post((req, res) => {
 
     //validate
-    // if(await User.findOne({username: req.body.username})) {
-    //     throw 'Username ' + req.body.username + 'is already taken';
-    // }
+    if(await User.findOne({username: req.body.username})) {
+        return res.status(400).json({
+                type: "TAKEN"
+    })
+    }
 
+    //validate
     // let user = await User.findOne({
     //     username: req.body.username
     // });
