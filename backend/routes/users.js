@@ -109,12 +109,11 @@ router.route('/add').post((req, res) => {
     const friends = req.body.friends;
     const snapchat = req.body.username;
     const instagram = req.body.instagram;
-    const twitter = req.body.twitter;
     const facebook = req.body.username;
     const discord = req.body.discord;
 
     const newUser = new User({username, firstName, lastName, email, personalityType, profilePicture, password, biography, 
-        friends, snapchat, instagram, twitter, facebook, discord});
+        friends, snapchat, instagram, facebook, discord});
 
     newUser.save()
         .then(() => res.json('User added!'))
@@ -144,7 +143,6 @@ router.route('/update/:id').post((req, res) =>{
         user.friends = req.body.friends;
         user.snapchat = req.body.username;
         user.instagram = req.body.instagram;
-        user.twitter = req.body.twitter;
         user.facebook = req.body.username;
         user.discord = req.body.discord;
 

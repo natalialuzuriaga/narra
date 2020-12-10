@@ -49,10 +49,6 @@ const userSchema = new Schema({
         type: String, 
         required: false
     },
-    twitter: { 
-        type: String, 
-        required: false
-    },
     facebook: { 
         type: String, 
         required: false
