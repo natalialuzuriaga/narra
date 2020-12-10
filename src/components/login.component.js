@@ -26,6 +26,34 @@ export default class Login extends Component {
         });
     }
 
+    handleErrorResponse = (error) => {
+        let errorResponse
+        if(error.response && error.response.data) {
+        //Handling Response Errors
+          errorResponse = error.response.data;
+
+          if(errorResponse.type == "INCORRECT_PASSWORD"){
+              //error for incorrect password
+          }
+
+          if(errorResponse.type == "NONEXISTENT"){
+              //error for user does not exist
+          }
+          
+        } else if(error.request) {
+          // TO Handle the default error response for Network failure or 404 etc.,
+          errorResponse = error.request.message || error.request.statusText;
+
+        } else {
+            //handle other errors
+          errorResponse = error.message;
+        }
+      }
+
+    handleLogIn = () => {
+        window.location = '/home'
+    }
+
     onSubmit(e) {
         e.preventDefault();
 
@@ -36,9 +64,8 @@ export default class Login extends Component {
        console.log(user);
 
        axios.post('http://localhost:3000/users/login', user)
-            .then(res => console.log(res.data));
-            
-        //window.location = "/home";
+            .then(res => this.handleLogIn)
+            .catch(error => this.handleErrorResponse(error));
     }
 
     onRegister(e){

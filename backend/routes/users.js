@@ -25,28 +25,25 @@ router.route('/login').post(
 ],
 
     async(req, res) => {
-        const errors = validationResult(req);
-
-        if(!errors.isEmpty()){
-            return res.status(400).json({
-                errors: errors.array()
-            });
-        }
-
-        const {username, password} = req.body;
         try{
+            const {username, password} = req.body;
+
             let user = await User.findOne({
                 username
             });
+            
+            //validates if username exists
             if(!user){
                 return res.status(400).json({
-                    message: "User Not Exist"
+                    type: "NONEXISTENT"
                 });
             }
+            
+            //checks password matches
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch){
                 return res.status(400).json({
-                    message: "Incorrect Password!"
+                    type: "INCORRECT_PASSWORD"
                 });
             }
 
@@ -82,12 +79,24 @@ router.route('/login').post(
 router.route('/add').post((req, res) => {
 
     //validate
-    if(await User.findOne({username: req.body.username})) {
-        throw 'Username ' + req.body.username + 'is already taken';
-    }
+    // if(await User.findOne({username: req.body.username})) {
+    //     throw 'Username ' + req.body.username + 'is already taken';
+    // }
+
+    // let user = await User.findOne({
+    //     username: req.body.username
+    // });
+    // if(user){
+    //     return res.status(400).json({
+    //         message: "Username is already taken"
+    //     });
+    // }
 
     //User Fields
     const username = req.body.username;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const email = req.body.email;
     const personalityType = req.body.personalityType;
     const profilePicture = req.body.profilePicture;
     const password = bcrypt.hash(req.body.password, 10);
@@ -99,7 +108,7 @@ router.route('/add').post((req, res) => {
     const facebook = req.body.username;
     const discord = req.body.discord;
 
-    const newUser = new User({username, personalityType, profilePicture, password, biography, 
+    const newUser = new User({username, firstName, lastName, email, personalityType, profilePicture, password, biography, 
         friends, snapchat, instagram, twitter, facebook, discord});
 
     newUser.save()
@@ -120,6 +129,9 @@ router.route('/update/:id').post((req, res) =>{
     User.findById(req.params.id)
    .then(user => {
         user.username = req.body.username;
+        user.firstName = req.body.firstName;
+        user.lastName = req.body.lastName;
+        user.email = req.body.email;
         user.personalityType = req.body.personalityType;
         user.profilePicture = req.body.profilePicture;
         user.password = req.body.password;

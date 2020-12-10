@@ -2,7 +2,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const session = require('express-session')
 const cors = require('cors');
 
 require('dotenv').config();
@@ -12,11 +11,6 @@ const Port = process.env.Port || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
-}))
 
 const uri = process.env.CONNECT_STRING;
 mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true});
