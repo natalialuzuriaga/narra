@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom'
-=======
 import axios from 'axios';
->>>>>>> c97014a83ed408904d88d89c4d8958c588ce3d71
 
 export default class Login extends Component {
     constructor(props){
