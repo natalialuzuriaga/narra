@@ -17,7 +17,7 @@ const Main = withRouter(({location}) =>{
       <Route exact path="/" component={Welcome}/>
       <Route path="/register" exact component={Register}/>
       <Route path="/login" exact component={Login}/>
-      <Route path="/match/:id" exact component={Match}/>
+      <Route path="/match" exact component={Match}/>
   </div>
 })
 
