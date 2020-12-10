@@ -104,55 +104,45 @@ const Match = (props) => {
   }
 
   useEffect(() => {
-    if (!dataFetched) {
-      const curUserID = "5fcc72aa929bc4383602a196";
-      axios.get('http://localhost:3000/users/' + curUserID)
-        .then(response => {
-          const i = getInd(response.data.personalityType);
-          // console.log(matches[i]);
-          //let potentialFriends = [];
-          for (let j = 0; j < matches[i].length; j++) {
-            axios.get('http://localhost:3000/types/' + matches[i][j])
-              .then(response => {
-                //console.log(potentialFriends)
-                if (response.data.users !== null) {
-                  var newArr = potentialFriends.concat(response.data.users)
-                  potentialFriends = newArr;
-                  //console.log(response.data.users)
-                  console.log(potentialFriends.length)
+    const curUserID = "5fcc72aa929bc4383602a196";
+    axios.get('http://localhost:3000/users/' + curUserID)
+      .then(response => {
+        const i = getInd(response.data.personalityType);
+        for (let j = 0; j < matches[i].length; j++) {
+          axios.get('http://localhost:3000/types/' + matches[i][j])
+            .then(response => {
+              if (response.data.users !== null) {
+                const newArr = response.data.users;
+                for (let k = 0; k < newArr.length; k++) {
+                  axios.get('http://localhost:3000/users/' + newArr[k])
+                    .then(response => {
+                      addToUsersInfo({
+                        name: response.data.firstName + " " + response.data.lastName,
+                        personalityType: response.data.personalityType,
+                        profilePicture: response.data.profilePicture,
+                        biography: response.data.biography,
+                        snapchat: response.data.snapchat,
+                        instagram: response.data.instagram,
+                        facebook: response.data.facebook,
+                        discord: response.data.discord,
+                      })
+                    })
+                    .catch((error) => {
+                      console.log("error with getting user object and pushing into usersInfo");
+                    })
                 }
-              })
-              .catch((error) => {
-                console.log(matches[i][j])
-                console.log("error with getting potential matches ids");
-              })
-          }
-          console.log("final length: " + newArr.length)
-          for (let k = 0; k < potentialFriends.length; k++) {
-            axios.get('http://localhost:3000/users/' + potentialFriends[k])
-              .then(response => {
-                addToUsersInfo({
-                  name: response.data.firstName + " " + response.data.lastName,
-                  personalityType: response.data.personalityType,
-                  profilePicture: response.data.profilePicture,
-                  biography: response.data.biography,
-                  snapchat: response.data.snapchat,
-                  instagram: response.data.instagram,
-                  facebook: response.data.facebook,
-                  discord: response.data.discord,
-                })
-                console.log(usersInfo)
-              })
-              .catch((error) => {
-                console.log("error with getting user object and pushing into usersInfo");
-              })
-          }
-          dataFetched = true;
-        })
-        .catch((error) => {
-          console.log("nothing worked rip");
-        })
-    }
+              }
+            })
+            .catch((error) => {
+              //console.log(matches[i][j])
+              console.log("error with getting potential matches ids");
+            })
+        }
+        console.log("users: " + usersInfo)
+      })
+      .catch((error) => {
+        console.log("nothing worked rip");
+      })
   })
 
 
@@ -170,7 +160,6 @@ const Match = (props) => {
       />
     );
   }
-  if (dataFetched) {
     return (
       <ul>
         <FlatList
@@ -180,13 +169,6 @@ const Match = (props) => {
         />
       </ul>
     )
-  }
-  else {
-    return (
-      <div>Couldn't fetch anything:(</div>
-    )
-  }
-
 }
 
 export default Match;
