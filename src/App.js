@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, withRouter, BrowserRouter} from "react-
 import Nav from "./components/nav.component";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
-import Welcome from "./components/landing.component";
+import Landing from "./components/landing.component";
 import Match from "./components/match.component"
 
 const Main = withRouter(({location}) =>{
@@ -16,7 +16,8 @@ const Main = withRouter(({location}) =>{
         location.pathname !== '/register' &&
         <Nav />
       }
-        <Route exact path="/" component={Welcome}/>
+        {/* <Nav /> */}
+        <Route exact path="/" component={Landing}/>
         <Route path="/register" exact component={Register}/>
         <Route path="/login" exact component={Login}/>
         <Route path="/match" exact component={Match}/>

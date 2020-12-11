@@ -85,46 +85,48 @@ export default class RegisterConfirm extends Component {
         }
         
         return (
-            <Container className="p-5 w-50">
-                <Row>
-                    <h2>Register for Narra</h2>
-                </Row>
-                <Row className="mt-3">
-                    <Col md="4">
-                        <Image src={img} roundedCircle fluid />
-                    </Col>
-                    <Col md="8">
-                        <ListGroup variant="flush">
-                            <ListGroup.Item>{firstName} {lastName}</ListGroup.Item>
-                            <ListGroup.Item>Username: {username}</ListGroup.Item>
-                            <ListGroup.Item>Email: {email}</ListGroup.Item>
-                            <ListGroup.Item>Personality Type: {personalityType}</ListGroup.Item>
-                            <ListGroup.Item>Bio: {bio}</ListGroup.Item>
-                            <ListGroup.Item>Snapchat: {snapchat}</ListGroup.Item>
-                            <ListGroup.Item>Instagram: {instagram}</ListGroup.Item>
-                            <ListGroup.Item>Facebook: {facebook}</ListGroup.Item>
-                            <ListGroup.Item>Discord: {discord}</ListGroup.Item>
-                        </ListGroup>
-                    </Col>
-                </Row>
-                <Row className="mt-3">
-                    <Col>
-                        <Button
-                            className=""
-                            variant="primary"
-                            onClick={this.back}>
-                            Back
-                        </Button>
-                    </Col>
-                    <Col>
-                        <Button
-                            className="float-right"
-                            variant="primary"
-                            onClick={this.confirm}>
-                            Confirm
-                        </Button>
-                    </Col>
-                </Row>
+            <Container className="d-flex justify-content-center">
+                <div className="pt-5 w-50 mb-5">
+                    <Row>
+                        <h2>Register for Narra</h2>
+                    </Row>
+                    <Row className="mt-3">
+                        <Col md="4">
+                            <Image src={img} roundedCircle fluid className="p-4" />
+                        </Col>
+                        <Col md="8">
+                            <ListGroup variant="flush">
+                                <ListGroup.Item>{firstName} {lastName}</ListGroup.Item>
+                                <ListGroup.Item>Username: {username}</ListGroup.Item>
+                                <ListGroup.Item>Email: {email}</ListGroup.Item>
+                                <ListGroup.Item>Personality Type: {personalityType}</ListGroup.Item>
+                                <ListGroup.Item>Bio: {bio}</ListGroup.Item>
+                                <ListGroup.Item>Snapchat: {snapchat}</ListGroup.Item>
+                                <ListGroup.Item>Instagram: {instagram}</ListGroup.Item>
+                                <ListGroup.Item>Facebook: {facebook}</ListGroup.Item>
+                                <ListGroup.Item>Discord: {discord}</ListGroup.Item>
+                            </ListGroup>
+                        </Col>
+                    </Row>
+                    <Row className="mt-3">
+                        <Col>
+                            <Button
+                                className=""
+                                variant="primary"
+                                onClick={this.back}>
+                                Back
+                            </Button>
+                        </Col>
+                        <Col>
+                            <Button
+                                className="float-right"
+                                variant="primary"
+                                onClick={this.confirm}>
+                                Confirm
+                            </Button>
+                        </Col>
+                    </Row>
+                </div>
             </Container>
         );
     }
