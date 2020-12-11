@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container } from 'react-bootstrap';
 import axios from 'axios';
 
 export default class Login extends Component {
@@ -89,12 +90,12 @@ export default class Login extends Component {
 
     render(){
         return(
-            <div>
-                <h3>Login</h3>
+            <Container className="w-50">
+                <h2>Login</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
                         <label>Username: </label>
-                        <input  type="text"
+                        <input type="text"
                                 required
                                 className="form-control"
                                 value={this.state.username}
@@ -128,7 +129,7 @@ export default class Login extends Component {
                         <input type="submit" value="Register" className="btn btn-outline-primary btn-lg btWidth" />
                     </div>
                 </form>
-            </div>
+            </Container>
         );
     }
 }

@@ -7,25 +7,23 @@ import axios from 'axios';
 const ENFP = "5fd1c4ce99d8e0880b65105c";
 const INFP = "5fd1c53999d8e0880b65105d";
 const INFJ = "5fd1c54299d8e0880b65105e";
-const ENFJ = "5fd1c54299d8e0880b65105f";
-const INTJ = "5fd1c54299d8e0880b651060";
-const ENTJ = "5fd1c54299d8e0880b651061";
-const INTP = "5fd1c54299d8e0880b651062";
-const ENTP = "5fd1c54299d8e0880b651063";
-const ISFP = "5fd1c54299d8e0880b651064";
-const ESFP = "5fd1c54299d8e0880b651065";
-const ISTP = "5fd1c54299d8e0880b651066";
-const ESTP = "5fd1c54299d8e0880b651067";
-const ISFJ = "5fd1c54299d8e0880b651068";
-const ESFJ = "5fd1c54299d8e0880b651069";
-const ISTJ = "5fd1c54299d8e0880b65106a";
-const ESTJ = "5fd1c54299d8e0880b65106b";
-
-var potentialFriends = []
+const ENFJ = "5fd1c54a99d8e0880b65105f";
+const INTJ = "5fd1c55499d8e0880b651060";
+const ENTJ = "5fd1c55899d8e0880b651061";
+const INTP = "5fd1c56299d8e0880b651062";
+const ENTP = "5fd1c56699d8e0880b651063";
+const ISFP = "5fd1c56f99d8e0880b651064";
+const ESFP = "5fd1c57499d8e0880b651065";
+const ISTP = "5fd1c58299d8e0880b651066";
+const ESTP = "5fd1c59599d8e0880b651067";
+const ISFJ = "5fd1c5f599d8e0880b651068";
+const ESFJ = "5fd1c5fc99d8e0880b651069";
+const ISTJ = "5fd1c60399d8e0880b65106a";
+const ESTJ = "5fd1c61299d8e0880b65106b";
 
 const Match = (props) => {
   const [usersInfo, setUsersInfo] = useState([]);
-  const [dataFetched, setdataFetched] = useState(false);
+ // const [dataFetched, setdataFetched] = useState(false);
   //matches for personality types array
   const matches = [
     [INFJ, INTJ, INFP, ENFP, ENFJ, ENTJ, INTP, ENTP],
@@ -103,7 +101,11 @@ const Match = (props) => {
     setUsersInfo(temp)
   }
 
-  useEffect(() => {
+  //function update() {
+    useEffect(() => {
+    //setUsersInfo([])
+    //let friendsArr = [];
+    console.log("in update")
     const curUserID = "5fcc72aa929bc4383602a196";
     axios.get('http://localhost:3000/users/' + curUserID)
       .then(response => {
@@ -114,6 +116,9 @@ const Match = (props) => {
               if (response.data.users !== null) {
                 const newArr = response.data.users;
                 for (let k = 0; k < newArr.length; k++) {
+                  if (newArr[k] === curUserID){
+                    continue;
+                  }
                   axios.get('http://localhost:3000/users/' + newArr[k])
                     .then(response => {
                       addToUsersInfo({
@@ -126,6 +131,18 @@ const Match = (props) => {
                         facebook: response.data.facebook,
                         discord: response.data.discord,
                       })
+                      // friendsArr.push(
+                      //   {
+                      //       name: response.data.firstName + " " + response.data.lastName,
+                      //       personalityType: response.data.personalityType,
+                      //       profilePicture: response.data.profilePicture,
+                      //       biography: response.data.biography,
+                      //       snapchat: response.data.snapchat,
+                      //       instagram: response.data.instagram,
+                      //       facebook: response.data.facebook,
+                      //       discord: response.data.discord,
+                      //     }
+                      // )
                     })
                     .catch((error) => {
                       console.log("error with getting user object and pushing into usersInfo");
@@ -134,19 +151,25 @@ const Match = (props) => {
               }
             })
             .catch((error) => {
-              //console.log(matches[i][j])
+              console.log(matches[i][j])
               console.log("error with getting potential matches ids");
             })
         }
-        console.log("users: " + usersInfo)
+        console.log("users: ")
+        console.log(usersInfo)
       })
       .catch((error) => {
         console.log("nothing worked rip");
       })
+    // console.log("matches: ")
+    // console.log(friendsArr)
+    // setUsersInfo(friendsArr);
+    // return friendsArr;
   })
 
 
   const renderCard = (person, idx) => {
+    
     return (
       <MatchCard
         nameCard={person.name}
@@ -160,10 +183,21 @@ const Match = (props) => {
       />
     );
   }
+    //update();
+      
+  //  useEffect(() => {
+  //    setUsersInfo(update());
+  //  }, [])
+    //usersInfo.setState();
+    // const matched = update()
+    // console.log("just updated")
+    // console.log(matched)
     return (
       <ul>
         <FlatList
+          //renderItem={this.renderItem}
           list={usersInfo}
+          //extraData={usersInfo.state}
           renderItem={renderCard}
           renderWhenEmpty={() => <div>You have no suggested matches :(</div>}
         />
