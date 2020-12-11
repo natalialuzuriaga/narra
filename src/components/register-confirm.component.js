@@ -73,19 +73,23 @@ export default class RegisterConfirm extends Component {
     };
 
     render() {
-        const {
+        let {
             values: { firstName, lastName,
                 email, username, personalityType, 
                 bio, img, snapchat, instagram,
                 facebook, discord }
         } = this.props;
+
+        if (img === "") {
+            img = "https://robohash.org/narra.png?set=set4";
+        }
         
         return (
             <Container className="p-5 w-50">
-                <h2>
-                    Register for Narra
-                </h2>
                 <Row>
+                    <h2>Register for Narra</h2>
+                </Row>
+                <Row className="mt-3">
                     <Col md="4">
                         <Image src={img} roundedCircle fluid />
                     </Col>
@@ -103,18 +107,18 @@ export default class RegisterConfirm extends Component {
                         </ListGroup>
                     </Col>
                 </Row>
-                <Row>
-                    <Col md="2">
+                <Row className="mt-3">
+                    <Col>
                         <Button
-                            className="md-5"
+                            className=""
                             variant="primary"
                             onClick={this.back}>
                             Back
                         </Button>
                     </Col>
-                    <Col md={{ span: 2, offset: 8 }}>
+                    <Col>
                         <Button
-                            className="md-5"
+                            className="float-right"
                             variant="primary"
                             onClick={this.confirm}>
                             Confirm

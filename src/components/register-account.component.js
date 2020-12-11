@@ -44,7 +44,10 @@ export default class RegisterAccount extends Component {
                     <Form noValidate validated={this.state.validated} onSubmit={this.continue} className="w-100">
                         <Form.Row>
                             <Form.Group as={Col} md="6">
-                                <Form.Label>First name</Form.Label>
+                                <Form.Label>
+                                    First name
+                                    <p style={{display:"inline", color:"red"}}> *</p>
+                                </Form.Label>
                                 <Form.Control
                                     required
                                     type="text"
@@ -59,7 +62,10 @@ export default class RegisterAccount extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col} md="6">
-                                <Form.Label>Last name</Form.Label>
+                                <Form.Label>
+                                    Last name
+                                    <p style={{display:"inline", color:"red"}}> *</p>
+                                </Form.Label>
                                 <Form.Control
                                     required
                                     type="text"
@@ -76,7 +82,10 @@ export default class RegisterAccount extends Component {
 
                         <Form.Row>
                             <Form.Group as={Col} md="6">
-                                <Form.Label>Email Address</Form.Label>
+                                <Form.Label>
+                                    Email Address
+                                    <p style={{display:"inline", color:"red"}}> *</p>
+                                </Form.Label>
                                 <Form.Control
                                     controlId="formBasicEmail"
                                     required
@@ -92,7 +101,10 @@ export default class RegisterAccount extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col} md="6">
-                                <Form.Label>Confirm Email Address</Form.Label>
+                                <Form.Label>
+                                    Confirm Email Address
+                                    <p style={{display:"inline", color:"red"}}> *</p>
+                                </Form.Label>
                                 <Form.Control
                                     required
                                     type="text"
@@ -109,7 +121,10 @@ export default class RegisterAccount extends Component {
 
                         <Form.Row>
                             <Form.Group as={Col} md="5">
-                                <Form.Label>Username</Form.Label>
+                                <Form.Label>
+                                    Username
+                                    <p style={{display:"inline", color:"red"}}> *</p>
+                                </Form.Label>
                                 <InputGroup>
                                     <InputGroup.Prepend>
                                         <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
@@ -130,7 +145,10 @@ export default class RegisterAccount extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col} md="7">
-                                <Form.Label>Password (must be at least 8 characters)</Form.Label>
+                                <Form.Label>
+                                    Password (must be at least 8 characters)
+                                    <p style={{display:"inline", color:"red"}}> *</p>
+                                </Form.Label>
                                 <Form.Control
                                     required
                                     type="password"

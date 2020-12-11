@@ -48,25 +48,60 @@ export default class RegisterProfile extends Component {
                 <Row>
                     <Form noValidate validated={this.state.validated} onSubmit={this.continue} className="w-100">
                         <Form.Row>
-                            <Form.Group as={Col} md="6">
-                                <Form.Label>MBTI Personality Type</Form.Label>
+                            <Form.Group as={Col} md="4">
+                                <Form.Label>
+                                    Personality Type
+                                    <p style={{display:"inline", color:"red"}}> *</p>
+                                </Form.Label>
                                 <Form.Control
                                     required
+                                    as="select" custom
+                                    size="lg"
                                     type="text"
                                     name="personalityType"
                                     value={values.personalityType}
                                     onChange={handleChange('personalityType')}
                                     defaultValue={values.personalityType}
-                                />
+                                >
+                                    <option value="">Select...</option>
+                                    <option value="ISTJ">ISTJ</option>
+                                    <option value="ISFJ">ISFJ</option>
+                                    <option value="INFJ">INFJ</option>
+                                    <option value="INTJ">INTJ</option>
+                                    <option value="ISTP">ISTP</option>
+                                    <option value="ISFP">ISFP</option>
+                                    <option value="INFP">INFP</option>
+                                    <option value="INTP">INTP</option>
+                                    <option value="ESTP">ESTP</option>
+                                    <option value="ESFP">ESFP</option>
+                                    <option value="ENFP">ENFP</option>
+                                    <option value="ENTP">ENTP</option>
+                                    <option value="ESTJ">ESTJ</option>
+                                    <option value="ESFJ">ESFJ</option>
+                                    <option value="ENFJ">ENFJ</option>
+                                    <option value="ENTJ">ENTJ</option>
+                                </Form.Control>
                                 <Form.Control.Feedback type="invalid">
                                     Please provide a valid personality type.
                                 </Form.Control.Feedback>
+                                <div style={{lineHeight: "90%", paddingTop:"5px"}}>
+                                    <small>
+                                        Your personality type as tested from the <a href="https://www.16personalities.com/">
+                                        Myers-Briggs Personality Test
+                                        </a>. This is what we use to match you with potential friends!
+                                    </small>
+                                </div>
                             </Form.Group>
-
-                            <Form.Group as={Col} md="6">
-                                <Form.Label>Bio</Form.Label>
+                            <Form.Group as={Col} md="8">
+                                <Form.Label>
+                                    Bio (max 350 characters)
+                                    <p style={{display:"inline", color:"red"}}> *</p>
+                                </Form.Label>
                                 <Form.Control
                                     required
+                                    as="textarea"
+                                    rows="5"
+                                    maxLength="350"
                                     type="text"
                                     name="bio"
                                     value={values.bio}
