@@ -90,7 +90,7 @@ const Match = (props) => {
   }
   //function to ultimately get list of potential matches for current user
     useEffect(() => {
-    const curUserID = "5fd1f378159d15824dd717bc";
+    const curUserID = props.match.params.id;
     axios.get('http://localhost:3000/users/' + curUserID)
       .then(response => {
         const i = getInd(response.data.personalityType);
