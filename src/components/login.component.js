@@ -63,7 +63,7 @@ export default class Login extends Component {
 
     handleLogin = (res) => {
         window.location = "/match";
-        console.log(res.data);
+        console.log(res.data.id);
     }
 
     onSubmit(e) {

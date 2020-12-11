@@ -124,7 +124,8 @@ router.route('/add').post(
 
     newUser.save()
         .then(() => res.status(200).json({
-            type: "SUCESSS"
+            id: newUser.id,
+            personalityType: newUser.personalityType
         }))
         .catch(err => res.status(400).json('Error: ' + err))
 

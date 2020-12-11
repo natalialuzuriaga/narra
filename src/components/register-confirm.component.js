@@ -41,7 +41,17 @@ export default class RegisterConfirm extends Component {
         }
       }
 
-    handleRegister = (props) => {
+    addToTypes = (res) => {
+
+        axios.post("http://localhost:3000/types/update/:id", res)
+            .then()
+            .catch(error => console.log(error.message))
+
+        this.props.nextStep()
+
+    }
+
+    handleRegister = () => {
 
         console.log(this.props.values.firstName);
         console.log(this.props.values.lastName);
