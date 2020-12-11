@@ -32,7 +32,6 @@ router.route('/login').post(
                 username
             });
             
-            console.log(user)
             //validates if username exists
             if(!user){
                 return res.status(400).json({
@@ -42,31 +41,37 @@ router.route('/login').post(
             
             //checks password matches
             const isMatch = await bcrypt.compareSync(password, user.password);
-            console.log(isMatch)
             if (!isMatch){
                 return res.status(400).json({
                     type: "INCORRECT_PASSWORD"
                 });
             }
 
-            const payload = {
-                user: {
-                    id: user.id
-                }
-            };
+            res.status(200).json({
+                id: user.id
+            });
 
-            jwt.sign(
-                payload, "randomString",
-                {
-                    expiresIn: 3600
-                },
-                (err, token) => {
-                    if(err) throw err;
-                    res.status(200).json({
-                        token
-                    });
-                }
-            );
+            //jwt token encryption user-id
+            // const payload = {
+            //     user: {
+            //         id: user.id
+            //     }
+            // };
+
+            // jwt.sign(
+            //     payload, "randomString",
+            //     {
+            //         expiresIn: 3600
+            //     },
+            //     (err, token) => {
+            //         if(err) throw err;
+            //         res.status(200).json({
+            //             auth: true,
+            //             token: token,
+            //             id: user.id
+            //         });
+            //     }
+            // );
         }
         catch(e){
             console.error(e);
@@ -92,7 +97,6 @@ router.route('/add').post(
     let user = await User.findOne({
         username: req.body.username
     });
-    console.log(user)
 
     if(user){
         return res.status(400).json({
@@ -129,7 +133,6 @@ router.route('/add').post(
             console.log(e)
         }
 
-    
     });
 
 //Get User using object ID
