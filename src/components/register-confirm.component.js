@@ -2,17 +2,69 @@ import React, { Component } from 'react';
 import { Row, Col, Button, Container } from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Image from 'react-bootstrap/Image';
+import axios from 'axios';
 
 export default class RegisterConfirm extends Component {
     constructor(props){
         super(props);
         this.confirm = this.confirm.bind(this);
         this.back = this.back.bind(this);
+        this.state = {
+            errUser: false,
+        }
     }
 
     confirm(e) {
         e.preventDefault();
-        this.props.nextStep();
+        this.handleRegister()
+    }
+
+    handleErrorResponse = (error) => {
+        let errorResponse
+        if(error.response && error.response.data) {
+        //Handling Response Errors
+          errorResponse = error.response.data;
+
+          if(errorResponse.type === "TAKEN"){
+              console.log(errorResponse.type)
+            this.setState({
+                errUser: true
+            });
+          }
+        } else if(error.request) {
+          // Handle the default error response for Network failure or 404 etc.,
+          errorResponse = error.request.message || error.request.statusText;
+
+        } else {
+            //handle other errors
+          errorResponse = error.message;
+        }
+      }
+
+    handleRegister = (props) => {
+
+        console.log(this.props.values.firstName);
+        console.log(this.props.values.lastName);
+        console.log(this.props.values.password);
+
+
+        const user = {
+            firstName: this.props.values.firstName,
+            lastName: this.props.values.lastName,
+            username: this.props.values.username,
+            password: this.props.values.password,
+            email: this.props.values.email,
+            personalityType: this.props.values.personalityType,
+            biography: this.props.values.bio,
+            snapchat: this.props.values.snapchat,
+            instagram: this.props.values.instagram,
+            facebook: this.props.values.facebook,
+            discord: this.props.values.discord
+        }
+
+        axios.post("http://localhost:3000/users/add", user)
+            .then(this.props.nextStep())
+            .catch(error => this.handleErrorResponse(error))
     }
 
     back(e) {

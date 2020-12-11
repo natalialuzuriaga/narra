@@ -57,11 +57,13 @@ export default class Login extends Component {
         } else {
             //handle other errors
           errorResponse = error.message;
+          console.log(errorResponse)
         }
       }
 
-    handleLogIn = () => {
-        window.location = '/home'
+    handleLogin = (res) => {
+        window.location = "/match";
+        console.log(res.data);
     }
 
     onSubmit(e) {
@@ -79,7 +81,7 @@ export default class Login extends Component {
         });
 
        axios.post('http://localhost:3000/users/login', user)
-            .then(res => this.handleLogIn)
+            .then(res => this.handleLogin(res))
             .catch(error => this.handleErrorResponse(error));
     }
 
