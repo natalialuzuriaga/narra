@@ -8,16 +8,20 @@ import Welcome from "./components/landing.component";
 import Match from "./components/match.component"
 
 const Main = withRouter(({location}) =>{
-  return<div>
-    {
-      location.pathname !== '/login' && location.pathname !== '/' && location.pathname !== '/register' && <Nav />
-    }
-
-      <Route exact path="/" component={Welcome}/>
-      <Route path="/register" exact component={Register}/>
-      <Route path="/login" exact component={Login}/>
-      <Route path="/match" exact component={Match}/>
-  </div>
+  return (
+    <Router>
+      {
+        location.pathname !== '/login' &&
+        location.pathname !== '/' &&
+        location.pathname !== '/register' &&
+        <Nav />
+      }
+        <Route exact path="/" component={Welcome}/>
+        <Route path="/register" exact component={Register}/>
+        <Route path="/login" exact component={Login}/>
+        <Route path="/match" exact component={Match}/>
+    </Router>
+  )
 })
 
 const App = () => (

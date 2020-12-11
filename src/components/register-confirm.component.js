@@ -81,7 +81,7 @@ export default class RegisterConfirm extends Component {
         } = this.props;
         
         return (
-            <Container className="w-50">
+            <Container className="p-5 w-50">
                 <h2>
                     Register for Narra
                 </h2>
