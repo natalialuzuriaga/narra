@@ -25,8 +25,8 @@ export default class Landing extends Component {
         <Container className="d-flex justify-content-center">
           <div className="text-center m-5">
             <img src={logo} alt="tree"  width="300" height="300"/>
-            <h1 className="mt-2">
-              <p>narra</p>
+            <h1 className="mt-2 swash">
+              <p>Narra</p>
             </h1>
             <Row className="d-flex justify-content-md-center">
               <Col>

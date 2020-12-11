@@ -5,7 +5,8 @@ import Nav from "./components/nav.component";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Landing from "./components/landing.component";
-import Match from "./components/match.component"
+import Match from "./components/match.component";
+import "./App.css";
 
 const Main = withRouter(({location}) =>{
   return (
