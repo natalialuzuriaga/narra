@@ -131,6 +131,7 @@ const Match = (props) => {
       .catch((error) => {
         console.log("nothing worked rip");
       })
+      console.log();
   })
 
 
@@ -145,7 +146,8 @@ const Match = (props) => {
         nameModal={person.name}
         snapchat={person.snapchat}
         instagram={person.instagram}
-        twitter={person.discord}
+        discord={person.discord}
+        facebook={person.facebook}
       />
     );
   }
