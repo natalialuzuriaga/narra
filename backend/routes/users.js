@@ -41,7 +41,7 @@ router.route('/login').post(
             }
             
             //checks password matches
-            const isMatch = await bcrypt.compare(password, user.password);
+            const isMatch = await bcrypt.compareSync(password, user.password);
             console.log(isMatch)
             if (!isMatch){
                 return res.status(400).json({
@@ -78,47 +78,59 @@ router.route('/login').post(
 );
 
 //Add New User (Register)
-router.route('/add').post((req, res) => {
-
-    //validate
-    if(await User.findOne({username: req.body.username})) {
-        return res.status(400).json({
-                type: "TAKEN"
-    })
-    }
-
-    //validate
-    // let user = await User.findOne({
-    //     username: req.body.username
-    // });
-    // if(user){
+router.route('/add').post(
+    async (req, res) => {
+        try{
+            //validate
+    // if(await User.findOne({username: req.body.username})) {
     //     return res.status(400).json({
-    //         message: "Username is already taken"
-    //     });
+    //             type: "TAKEN"
+    // })
     // }
+
+    //validate
+    let user = await User.findOne({
+        username: req.body.username
+    });
+    console.log(user)
+
+    if(user){
+        return res.status(400).json({
+            type: "TAKEN"
+        });
+    }
 
     //User Fields
     const username = req.body.username;
+    const password = await bcrypt.hashSync(req.body.password, 10);
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const email = req.body.email;
     const personalityType = req.body.personalityType;
     const profilePicture = req.body.profilePicture;
-    const password = bcrypt.hash(req.body.password, 10);
     const biography = req.body.biography;
-    const friends = req.body.friends;
-    const snapchat = req.body.username;
+    const friends = [];
+    const snapchat = req.body.snapchat;
     const instagram = req.body.instagram;
-    const facebook = req.body.username;
+    const facebook = req.body.facebook;
     const discord = req.body.discord;
 
     const newUser = new User({username, firstName, lastName, email, personalityType, profilePicture, password, biography, 
         friends, snapchat, instagram, facebook, discord});
 
     newUser.save()
-        .then(() => res.json('User added!'))
+        .then(() => res.status(200).json({
+            type: "SUCESSS"
+        }))
         .catch(err => res.status(400).json('Error: ' + err))
-});
+
+        }
+        catch(e){
+            console.log(e)
+        }
+
+    
+    });
 
 //Get User using object ID
 router.route('/:id').get((req, res) => {
