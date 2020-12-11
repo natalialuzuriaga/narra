@@ -21,10 +21,9 @@ const ESFJ = "5fd1c5fc99d8e0880b651069";
 const ISTJ = "5fd1c60399d8e0880b65106a";
 const ESTJ = "5fd1c61299d8e0880b65106b";
 
+//Compatibility chart for each personality type
 const Match = (props) => {
   const [usersInfo, setUsersInfo] = useState([]);
- // const [dataFetched, setdataFetched] = useState(false);
-  //matches for personality types array
   const matches = [
     [INFJ, INTJ, INFP, ENFP, ENFJ, ENTJ, INTP, ENTP],
     [INFJ, INTJ, INFP, ENFP, ENFJ, ENTJ, INTP, ENTP],
@@ -44,6 +43,7 @@ const Match = (props) => {
     [ISFP, ISTP, ISFJ, ESFJ, ISTJ, ESTJ, INTP],
   ]
 
+  //function yeilds index of compatibility array to look in based on personality type
   function getInd(personality) {
     switch (personality) {
       case "ENFP":
@@ -83,30 +83,14 @@ const Match = (props) => {
     }
   }
 
-  //get currently logged in user
-  //store user.personalityType in a variable
-  //switch statement for each personality type
-  //set var index to number based on personality case
-  //declare array of potentialFriends(list of user IDs)
-  //for length of array at matches[index]
-  //get all people in db w that type and save in temp
-  //potentialFriends = potentialFriends.concat(temp.users)
-  //for each in potentialFriends
-  //get entire user info and add to usersInfo
-  //usersInfo has everything we need
-
   const addToUsersInfo = (user) => {
     let temp = usersInfo;
     temp.push(user);
     setUsersInfo(temp)
   }
-
-  //function update() {
+  //function to ultimately get list of potential matches for current user
     useEffect(() => {
-    //setUsersInfo([])
-    //let friendsArr = [];
-    console.log("in update")
-    const curUserID = "5fcc72aa929bc4383602a196";
+    const curUserID = "5fd1f378159d15824dd717bc";
     axios.get('http://localhost:3000/users/' + curUserID)
       .then(response => {
         const i = getInd(response.data.personalityType);
@@ -131,18 +115,6 @@ const Match = (props) => {
                         facebook: response.data.facebook,
                         discord: response.data.discord,
                       })
-                      // friendsArr.push(
-                      //   {
-                      //       name: response.data.firstName + " " + response.data.lastName,
-                      //       personalityType: response.data.personalityType,
-                      //       profilePicture: response.data.profilePicture,
-                      //       biography: response.data.biography,
-                      //       snapchat: response.data.snapchat,
-                      //       instagram: response.data.instagram,
-                      //       facebook: response.data.facebook,
-                      //       discord: response.data.discord,
-                      //     }
-                      // )
                     })
                     .catch((error) => {
                       console.log("error with getting user object and pushing into usersInfo");
@@ -155,16 +127,10 @@ const Match = (props) => {
               console.log("error with getting potential matches ids");
             })
         }
-        console.log("users: ")
-        console.log(usersInfo)
       })
       .catch((error) => {
         console.log("nothing worked rip");
       })
-    // console.log("matches: ")
-    // console.log(friendsArr)
-    // setUsersInfo(friendsArr);
-    // return friendsArr;
   })
 
 
@@ -183,21 +149,10 @@ const Match = (props) => {
       />
     );
   }
-    //update();
-      
-  //  useEffect(() => {
-  //    setUsersInfo(update());
-  //  }, [])
-    //usersInfo.setState();
-    // const matched = update()
-    // console.log("just updated")
-    // console.log(matched)
     return (
       <ul>
         <FlatList
-          //renderItem={this.renderItem}
           list={usersInfo}
-          //extraData={usersInfo.state}
           renderItem={renderCard}
           renderWhenEmpty={() => <div>You have no suggested matches :(</div>}
         />
@@ -206,17 +161,3 @@ const Match = (props) => {
 }
 
 export default Match;
-
-
-  // const cardInfo = [
-  //   { image: "https://i.insider.com/50f967f56bb3f7830a000019", title: "Angela", mb: "ENFP", comp: "5" },
-  //   { image: "https://i.insider.com/50f967f56bb3f7830a000019", title: "Macy", mb: "INFP", comp: "4" },
-  //   { image: "https://i.insider.com/50f967f56bb3f7830a000019", title: "Anna", mb: "ENFJ", comp: "4" },
-  //   { image: "https://i.insider.com/50f967f56bb3f7830a000019", title: "Tanya", mb: "ESFJ", comp: "3" },
-  //   { image: "https://i.insider.com/50f967f56bb3f7830a000019", title: "Lex", mb: "ENFJ", comp: "3" },
-  //   { image: "https://i.insider.com/50f967f56bb3f7830a000019", title: "Angela", mb: "ENFP", comp: "5" },
-  //   { image: "https://i.insider.com/50f967f56bb3f7830a000019", title: "Macy", mb: "INFP", comp: "4" },
-  //   { image: "https://i.insider.com/50f967f56bb3f7830a000019", title: "Anna", mb: "ENFJ", comp: "4" },
-  //   { image: "https://i.insider.com/50f967f56bb3f7830a000019", title: "Tanya", mb: "ESFJ", comp: "3" },
-  //   { image: "https://i.insider.com/50f967f56bb3f7830a000019", title: "Lex", mb: "ENFJ", comp: "3" }
-  // ];
