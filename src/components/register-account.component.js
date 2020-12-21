@@ -32,6 +32,9 @@ export default class RegisterAccount extends Component {
         if (this.props.values.password.length < 8 && this.props.values.password.length !== 0) {
             alerts.push("Password must be at least 8 characters.");
         }
+        if (this.props.values.username.length < 5 && this.props.values.username.length !== 0) {
+            alerts.push("Username must be at least 5 characters.");
+        }
 
         if (alerts.length > 0) {
             alert("Error: \n" + alerts.join("\n"));
@@ -137,7 +140,7 @@ export default class RegisterAccount extends Component {
                             <Form.Row>
                                 <Form.Group as={Col} md="5">
                                     <Form.Label>
-                                        Username
+                                        Username (min 5 characters)
                                         <p style={{display:"inline", color:"red"}}> *</p>
                                     </Form.Label>
                                     <InputGroup>
@@ -161,7 +164,7 @@ export default class RegisterAccount extends Component {
 
                                 <Form.Group as={Col} md="7">
                                     <Form.Label>
-                                        Password (must be at least 8 characters)
+                                        Password (min 8 characters)
                                         <p style={{display:"inline", color:"red"}}> *</p>
                                     </Form.Label>
                                     <Form.Control

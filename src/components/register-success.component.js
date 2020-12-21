@@ -19,11 +19,11 @@ export default class RegisterSuccess extends Component {
     render() {
         return (
             this.state.redirect
-            ? <Redirect to="/match" />
+            ? <Redirect to="/login" />
             : <Container className="p-5 w-50 text-center">
                 <Image src={success} fluid/>
                 <h1>Success!</h1>
-                <p>Taking you to matching page...</p>
+                <p>Taking you back to login page...</p>
             </Container>
         );
     }
