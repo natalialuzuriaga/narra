@@ -23,6 +23,12 @@ export default class RegisterProfile extends Component {
         const form = e.currentTarget;
         console.log(form);
         this.setValidated();
+
+        if (this.props.values.bio.length > 350) {
+            alert("Bio must be 350 characters or less.");
+            e.stopPropagation();
+        }
+
         if (form.checkValidity() === false) {
             e.preventDefault();
             e.stopPropagation();

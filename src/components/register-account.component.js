@@ -23,7 +23,21 @@ export default class RegisterAccount extends Component {
         const form = e.currentTarget;
         console.log(form);
         this.setValidated();
-        if (form.checkValidity() === false) {
+
+        let alerts = [];
+
+        if (this.props.values.email !== this.props.values.confirmEmail) {
+            alerts.push("Email addresses must match.");
+        }
+        if (this.props.values.password.length < 8 && this.props.values.password.length !== 0) {
+            alerts.push("Password must be at least 8 characters.");
+        }
+
+        if (alerts.length > 0) {
+            alert("Error: \n" + alerts.join("\n"));
+            e.stopPropagation();
+        }
+        else if (form.checkValidity() === false) {
             e.preventDefault();
             e.stopPropagation();
         }
