@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { check, validationResult} = require("express-validator/check");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 let User = require('../models/user.model');
 
 //Gets All Users
@@ -50,28 +49,6 @@ router.route('/login').post(
             res.status(200).json({
                 id: user.id
             });
-
-            //jwt token encryption user-id
-            // const payload = {
-            //     user: {
-            //         id: user.id
-            //     }
-            // };
-
-            // jwt.sign(
-            //     payload, "randomString",
-            //     {
-            //         expiresIn: 3600
-            //     },
-            //     (err, token) => {
-            //         if(err) throw err;
-            //         res.status(200).json({
-            //             auth: true,
-            //             token: token,
-            //             id: user.id
-            //         });
-            //     }
-            // );
         }
         catch(e){
             console.error(e);
@@ -86,12 +63,6 @@ router.route('/login').post(
 router.route('/add').post(
     async (req, res) => {
         try{
-            //validate
-    // if(await User.findOne({username: req.body.username})) {
-    //     return res.status(400).json({
-    //             type: "TAKEN"
-    // })
-    // }
 
     //validate
     let user = await User.findOne({
@@ -122,10 +93,10 @@ router.route('/add').post(
     const newUser = new User({username, firstName, lastName, email, personalityType, profilePicture, password, biography, 
         friends, snapchat, instagram, facebook, discord});
 
-    newUser.save()
-        .then(() => res.status(200).json({
-            id: newUser.id,
-            personalityType: newUser.personalityType
+     newUser.save()
+        .then(async () => res.status(200).json({
+            userId: await newUser.id,
+            personalityType: await newUser.personalityType
         }))
         .catch(err => res.status(400).json('Error: ' + err))
 

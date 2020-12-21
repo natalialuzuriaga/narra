@@ -13,7 +13,8 @@ const typeSchema = new Schema({
     }],
 }, {
     timestamps: true,
-    }
+    },
+    { typeKey: '$type' }
 );
 
 const Type = mongoose.model('Type', typeSchema)

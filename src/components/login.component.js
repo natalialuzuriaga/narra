@@ -62,7 +62,7 @@ export default class Login extends Component {
       }
 
     handleLogin = (res) => {
-        window.location = "/match";
+        window.location = "/match/"+res.data.id;
         console.log(res.data.id);
     }
 
@@ -92,7 +92,7 @@ export default class Login extends Component {
 
     render(){
         return(
-            <Container className="w-50">
+            <Container className="w-50 p-5">
                 <h2>Login</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
@@ -113,7 +113,7 @@ export default class Login extends Component {
                                 onChange={this.onEnterPassword}
                                 />
                     </div>
-                    <div className="form-group">
+                    <div className="p-2 d-flex justify-content-center form-group">
                         <input type="submit" value="Submit" className="btn btn-outline-primary btn-lg btWidth" />
                     </div>
                     {this.state.errPass &&
@@ -125,10 +125,14 @@ export default class Login extends Component {
 
                     }
                 </form>
-                <small>Don't have an account?</small>
                 <form onSubmit={this.onRegister}>
-                    <div className="register">
-                        <input type="submit" value="Register" className="btn btn-outline-primary btn-lg btWidth" />
+                    <div className="d-flex align-items-center flex-column">
+                        <div className="mb-auto">
+                            <small>Don't have an account?</small>
+                        </div>
+                        <div className="p-2 register">
+                            <input type="submit" value="Register" className="btn btn-outline-primary btn-md btWidth" />
+                        </div>
                     </div>
                 </form>
             </Container>

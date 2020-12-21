@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import logo from './tree.png';
-
-
+// import logo from './tree.png';
 
 export default class Navbar extends Component {
   constructor(props){
@@ -20,8 +18,10 @@ export default class Navbar extends Component {
     return (
       <div>
         <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-          {/* <Link to="/" className="navbar-brand">narra</Link> */}
-          <div className="collse navbar-collapse">
+          <Link to="/" className="navbar-brand swash">
+            <h4>Narra</h4>
+          </Link>
+          {/* <div className="collse navbar-collapse">
           <ul className="navbar-nav mr-auto">
             <li className="navbar-item">
             <Link to="/login" className="nav-link">Login/Register</Link>
@@ -30,7 +30,7 @@ export default class Navbar extends Component {
             <Link to="/match" className="nav-link">Match</Link>
             </li>
           </ul>
-          </div>
+          </div> */}
         </nav>
         
       </div>

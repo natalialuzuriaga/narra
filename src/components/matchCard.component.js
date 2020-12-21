@@ -14,7 +14,6 @@ const MatchCard = (props) => {
                 name={props.nameModal}
                 snapchat={"Snapchat: " + props.snapchat}
                 instagram={"Instagram: " + props.instagram}
-                twitter={"Twitter: " + props.twitter}
                 facebook={"Facebook: " + props.facebook}
                 discord={"Discord: " + props.discord}
             ></UserModal>

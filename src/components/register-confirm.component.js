@@ -41,17 +41,29 @@ export default class RegisterConfirm extends Component {
         }
       }
 
-    addToTypes = (res) => {
+    findType = async (res) => {
+        //finds object id of type collection that holds the entered personality type
+        const {personalityType, userId} = res.data
+        console.log(personalityType)
+        console.log(userId)
 
-        axios.post("http://localhost:3000/types/update/:id", res)
-            .then()
-            .catch(error => console.log(error.message))
-
-        this.props.nextStep()
-
+        await axios.get("http://localhost:3000/types/find/" + personalityType)
+             .then(res => this.addToType(res, userId))
+             .catch(error => console.log(error.message))
     }
 
-    handleRegister = () => {
+    addToType = async (res, userNum) => {
+        //adds user to types collection
+
+        const user = {
+            userId: userNum
+        }
+        await axios.post("http://localhost:3000/types/update/" + res.data.id, user)
+            .then(this.props.nextStep())
+            .catch(error => console.log(error.message))
+    }
+
+    handleRegister = async () => {
 
         console.log(this.props.values.firstName);
         console.log(this.props.values.lastName);
@@ -71,9 +83,11 @@ export default class RegisterConfirm extends Component {
             facebook: this.props.values.facebook,
             discord: this.props.values.discord
         }
-
-        axios.post("http://localhost:3000/users/add", user)
-            .then(this.props.nextStep())
+        //creates user object and adds to database
+       await axios.post("http://localhost:3000/users/add", user)
+            .then(res1 => {
+                this.findType(res1)
+            })
             .catch(error => this.handleErrorResponse(error))
     }
 
@@ -83,54 +97,60 @@ export default class RegisterConfirm extends Component {
     };
 
     render() {
-        const {
+        let {
             values: { firstName, lastName,
                 email, username, personalityType, 
                 bio, img, snapchat, instagram,
                 facebook, discord }
         } = this.props;
+
+        if (img === "") {
+            img = "https://robohash.org/narra.png?set=set4";
+        }
         
         return (
-            <Container className="w-50">
-                <h2>
-                    Register for Narra
-                </h2>
-                <Row>
-                    <Col md="4">
-                        <Image src={img} roundedCircle fluid />
-                    </Col>
-                    <Col md="8">
-                        <ListGroup variant="flush">
-                            <ListGroup.Item>{firstName} {lastName}</ListGroup.Item>
-                            <ListGroup.Item>Username: {username}</ListGroup.Item>
-                            <ListGroup.Item>Email: {email}</ListGroup.Item>
-                            <ListGroup.Item>Personality Type: {personalityType}</ListGroup.Item>
-                            <ListGroup.Item>Bio: {bio}</ListGroup.Item>
-                            <ListGroup.Item>Snapchat: {snapchat}</ListGroup.Item>
-                            <ListGroup.Item>Instagram: {instagram}</ListGroup.Item>
-                            <ListGroup.Item>Facebook: {facebook}</ListGroup.Item>
-                            <ListGroup.Item>Discord: {discord}</ListGroup.Item>
-                        </ListGroup>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md="2">
-                        <Button
-                            className="md-5"
-                            variant="primary"
-                            onClick={this.back}>
-                            Back
-                        </Button>
-                    </Col>
-                    <Col md={{ span: 2, offset: 8 }}>
-                        <Button
-                            className="md-5"
-                            variant="primary"
-                            onClick={this.confirm}>
-                            Confirm
-                        </Button>
-                    </Col>
-                </Row>
+            <Container className="d-flex justify-content-center">
+                <div className="pt-5 w-50 mb-5">
+                    <Row>
+                        <h2>Register for Narra</h2>
+                    </Row>
+                    <Row className="mt-3">
+                        <Col md="4">
+                            <Image src={img} roundedCircle fluid className="p-4" />
+                        </Col>
+                        <Col md="8">
+                            <ListGroup variant="flush">
+                                <ListGroup.Item>{firstName} {lastName}</ListGroup.Item>
+                                <ListGroup.Item>Username: {username}</ListGroup.Item>
+                                <ListGroup.Item>Email: {email}</ListGroup.Item>
+                                <ListGroup.Item>Personality Type: {personalityType}</ListGroup.Item>
+                                <ListGroup.Item>Bio: {bio}</ListGroup.Item>
+                                <ListGroup.Item>Snapchat: {snapchat}</ListGroup.Item>
+                                <ListGroup.Item>Instagram: {instagram}</ListGroup.Item>
+                                <ListGroup.Item>Facebook: {facebook}</ListGroup.Item>
+                                <ListGroup.Item>Discord: {discord}</ListGroup.Item>
+                            </ListGroup>
+                        </Col>
+                    </Row>
+                    <Row className="mt-3">
+                        <Col>
+                            <Button
+                                className=""
+                                variant="primary"
+                                onClick={this.back}>
+                                Back
+                            </Button>
+                        </Col>
+                        <Col>
+                            <Button
+                                className="float-right"
+                                variant="primary"
+                                onClick={this.confirm}>
+                                Confirm
+                            </Button>
+                        </Col>
+                    </Row>
+                </div>
             </Container>
         );
     }
