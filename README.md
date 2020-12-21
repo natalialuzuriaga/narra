@@ -6,6 +6,8 @@ Natalia Luzuriaga, Raphael Gatchalian, Angela Hu, Roshni Rao, Abhijaat Gupta for
 
 Narra is a personality matching web application that connects users based on the compatibility of their MBTI (Myers-Briggs Type Indicator) personality type.
 
+LINK TO REPOSITORY: https://github.com/natalialuzuriaga/narra
+
 ## How to run the app locally
 
 In the command line, run:
