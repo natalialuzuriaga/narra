@@ -1,6 +1,6 @@
 # Narra
 
-![Narra homepage](homepage.png?raw=true "Narra Homepage")
+![Narra homepage](public/homepage.png)
 
 Natalia Luzuriaga, Raphael Gatchalian, Angela Hu, Roshni Rao, Abhijaat Gupta for the class CS 97: Software Construction Projects, UCLA Fall 2020.
 
