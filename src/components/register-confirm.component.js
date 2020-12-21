@@ -41,7 +41,29 @@ export default class RegisterConfirm extends Component {
         }
       }
 
-    handleRegister = (props) => {
+    findType = async (res) => {
+        //finds object id of type collection that holds the entered personality type
+        const {personalityType, userId} = res.data
+        console.log(personalityType)
+        console.log(userId)
+
+        await axios.get("http://localhost:3000/types/find/" + personalityType)
+             .then(res => this.addToType(res, userId))
+             .catch(error => console.log(error.message))
+    }
+
+    addToType = async (res, userNum) => {
+        //adds user to types collection
+
+        const user = {
+            userId: userNum
+        }
+        await axios.post("http://localhost:3000/types/update/" + res.data.id, user)
+            .then(this.props.nextStep())
+            .catch(error => console.log(error.message))
+    }
+
+    handleRegister = async () => {
 
         console.log(this.props.values.firstName);
         console.log(this.props.values.lastName);
@@ -61,9 +83,11 @@ export default class RegisterConfirm extends Component {
             facebook: this.props.values.facebook,
             discord: this.props.values.discord
         }
-
-        axios.post("http://localhost:3000/users/add", user)
-            .then(this.props.nextStep())
+        //creates user object and adds to database
+       await axios.post("http://localhost:3000/users/add", user)
+            .then(res1 => {
+                this.findType(res1)
+            })
             .catch(error => this.handleErrorResponse(error))
     }
 
