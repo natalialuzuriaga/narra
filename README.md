@@ -40,7 +40,7 @@ If a warning pops up, input `Y`. Now, you can open [http://localhost:3001](http:
 
 ## While using the app
 
-After logging in or registering, and landing on the matching page, please either comment out the console.log on line #126 of the source code in match.component.js within the components folder or add another console.log after this line and save the file.
+After logging in or registering, and landing on the matching page, please either uncomment out the console.log on line #126 of the source code in match.component.js within the components folder or add another console.log after this line and save the file.
 
 ## Tech Stack
 
